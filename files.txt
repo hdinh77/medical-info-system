@@ -1,0 +1,2 @@
+this is where the whole database system will be stored (for now)
+maybe it's a spreadsheet?
