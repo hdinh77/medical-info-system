@@ -5,9 +5,12 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "dnode.h"
+#include "Node.h"
+#include "Database.h"
+#include "Patient.h"
+#include "Doctor.h"
 
-#define EXIT 4
+#define EXIT 5
 
 int displayMenu() {
     std::ostringstream oss;
@@ -17,7 +20,8 @@ int displayMenu() {
         << "1) New patient\n"
         << "2) Existing patient records\n"
         << "3) New doctor\n"
-        << "4) Exit";
+        << "4) Existing doctor records"
+        << "5) Exit";
     std::cout << oss.str() << std::endl;
 
     int choice;
@@ -27,20 +31,36 @@ int displayMenu() {
 
 
 
-int main() {
+int main(int argc, char* argv[]) {
+    // Using a linked list hash table to store patients and doctors
+    // import whatever was in the file entered in argv
+    // 1. each patient can only have one doctor
+    // 2. each doctor can have a few patients
+    // make sure to put this into the new file!!!
+    Database 
+
     
+    //display the menu
     int choice;
     while(choice != EXIT) {
         choice = displayMenu();
         switch(choice) {
             case EXIT:
                 break;
+            case 1:
+                //add a new patient to hash table
+
             case 2:
+                // access a patient from hash table
 
             case 3:
+                // add a new doctor to hash table
 
             case 4:
-
+                // access a doctor from hash table
+            default:
+                std::cout << "Invalid response" << std::endl;
+                break;
         }
     }
 
