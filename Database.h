@@ -1,4 +1,4 @@
-// database.h
+// Database.h
 // Heather Dinh 6/20/20
 
 #ifndef DATABASE_H
