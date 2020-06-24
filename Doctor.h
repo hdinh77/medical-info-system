@@ -5,16 +5,28 @@
 #define DOCTOR_H
 
 #include <string>
+class NoAccessException{};
 
 class Doctor {
     public:
         Doctor();
-        ~Doctor();
-        std::string getName() const;
         bool toggleAccess();
 
-        int getIdNumber() const;
+        // Getter methods
+        std::string getName() const;
+        int getIdNumber() const throw(NoAccessException);
+        std::string getPosition() const throw(NoAccessException);
+        std::string getCertification() const throw(NoAccessException);
+        std::string getMedicalSchool() const throw(NoAccessException);
+        std::string getLocation() const throw(NoAccessException);
+        int getPhoneNumber() const throw(NoAccessException);
+        std::string getEmail() const throw(NoAccessException);
+
     private:
+        void setPassword();
+        bool access;
+        std::string password;
+
         // Professional information
         std::string name;
         int idNumber;

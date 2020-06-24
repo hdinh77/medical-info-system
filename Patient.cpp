@@ -6,13 +6,14 @@
 #include <sstream>
 #include <string>
 
+using namespace std;
+
 Patient::Patient() {
     access = false;
 }
 
-bool enterRecords() {
+void Patient::enterRecords() {
     std::string curString;
-    int curInt;
     bool curBool;
 
     cout << "Name: ";
@@ -20,12 +21,12 @@ bool enterRecords() {
     setName(curString);
     
     cout << "\nID Number: ";
-    cin >> atoi(curInt);
-    setIdNumber(curInt);
+    cin >> curString;
+    setIdNumber(stoi(curString));
 
     cout << "\nDate of Birth(format: MMDDYYYY): ";
     cin >> curString;
-    setBirthday(curString[0, 2], curString[2, 4], curString[4]);
+    setBirthday(curString.substr(0, 2), curString.substr(2, 2), curString.substr(4, 4));
 
     cout << "\nPlace of Birth: ";
     cin >> curString;
@@ -40,8 +41,8 @@ bool enterRecords() {
     setEmail(curString);
 
     cout << "\nPhone Number (1234567890): ";
-    cin >> atoi(curInt);
-    setPhoneNumber(curInt);
+    cin >> curString;
+    setPhoneNumber(stoi(curString));
 
     cout << "\nOccupation: ";
     cin >> curString;
@@ -73,6 +74,7 @@ void Patient::setPassword() {
         cin >> first;
         cout << "\nRe-enter your password: ";
         cin >>second;
+        cout << "\n";
     }
 
     password = first;
@@ -91,7 +93,7 @@ bool Patient::toggleAccess() {
         if(guess == password) {
             access = true;
             return access;
-        }else if(guess == 'q') {
+        }else if(guess == "q") {
             return false;
         }
     }
@@ -101,136 +103,136 @@ bool Patient::toggleAccess() {
 }
 
 std::string Patient::printMedicalRecords() const throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+    if(this->access == false) throw(NoAccessException());
     std::ostringstream oss;
-    oss << "Name: " << getName() << endl;
-    oss << "ID Number: " << getIdNumber() << endl;
-    oss << "Date of Birth: " << getBirthday() << endl;
-    oss << "Place of Birth: " << getPlaceBirth() << endl;
-    oss << "Marital Status: " << getMaritalStatus() << endl;
-    oss << "Email: " << getEmail() << endl;
-    oss << "Phone Number: " << getPhoneNumber() << endl;
-    oss << "Occupation: " << getOccupation() << endl;
-    oss << "Medical Conditions: " << getMedicalCondition() << endl;
-    oss << "Medical History: " << getMedicalHistory() << endl;
-    oss << "Current medications: " << getMedications() << endl;
-    oss << "Primary doctor: " << getDoctorName() << endl;
+    oss << "Name: " << getName() << std::endl;
+    oss << "ID Number: " << getIdNumber() << std::endl;
+    oss << "Date of Birth: " << getBirthday() << std::endl;
+    oss << "Place of Birth: " << getPlaceBirth() << std::endl;
+    oss << "Marital Status: " << getMaritalStatus() << std::endl;
+    oss << "Email: " << getEmail() << std::endl;
+    oss << "Phone Number: " << getPhoneNumber() << std::endl;
+    oss << "Occupation: " << getOccupation() << std::endl;
+    oss << "Medical Conditions: " << getMedicalConditions() << std::endl;
+    oss << "Medical History: " << getMedicalHistory() << std::endl;
+    oss << "Current medications: " << getMedications() << std::endl;
+    oss << "Primary doctor: " << getDoctorName() << std::endl;
     return oss.str();
 }
 
 int Patient::getIdNumber() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
+    if(this->access == false) throw(NoAccessException());
     return idNumber;
 }
 
 std::string Patient::getBirthday() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
-    return (DOB.month + "/" + DOB.day + "/" + DOB.year);
+    if(this->access == false) throw(NoAccessException());
+    return (std::to_string(birthday.month) + "/" + std::to_string(birthday.day) + "/" + std::to_string(birthday.year));
 }
 
 std::string Patient::getPlaceBirth() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
+    if(this->access == false) throw(NoAccessException());
     return placeBirth;
 }
 
 bool Patient::getMaritalStatus() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
+    if(this->access == false) throw(NoAccessException());
     return maritalStatus;
 }
 
 std::string Patient::getEmail() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
+    if(this->access == false) throw(NoAccessException());
     return email;
 }
 
 int Patient::getPhoneNumber() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
+    if(this->access == false) throw(NoAccessException());
     return phoneNumber;
 }
 
 std::string Patient::getOccupation() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
+    if(this->access == false) throw(NoAccessException());
     return occupation;
 }
 
-std::string Patient::getMedicalCondition() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
-    return medicalCondition;
+std::string Patient::getMedicalConditions() const throw(NoAccessException){
+    if(this->access == false) throw(NoAccessException());
+    return medicalConditions;
 }
 
 std::string Patient::getMedicalHistory() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
+    if(this->access == false) throw(NoAccessException());
     return medicalHistory;
 }
 
 std::string Patient::getMedications() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
+    if(this->access == false) throw(NoAccessException());
     return medications;
 }
 
 std::string Patient::getDoctorName() const throw(NoAccessException){
-    if(this->access == false) throw(NoAccessException);
+    if(this->access == false) throw(NoAccessException());
     return doctorName;
 }
 
-void setName(std::string curName) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+void Patient::setName(std::string curName) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
     this->name = curName;
 }
 
-void setIdNumber(int curNum) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+void Patient::setIdNumber(int curNum) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
     this->idNumber = curNum;
 }
 
-void setBirthday(std::string curMonth, std::string curDay, std::string curYear) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
-    birthday.month = curMonth; 
-    birthday.day = curDay;
-    birthday.year = curYear;
+void Patient::setBirthday(std::string curMonth, std::string curDay, std::string curYear) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
+    birthday.month = stoi(curMonth); 
+    birthday.day = stoi(curDay);
+    birthday.year = stoi(curYear);
 }
 
-void setPlaceBirth(std::string curPlace) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+void Patient::setPlaceBirth(std::string curPlace) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
     placeBirth = curPlace;
 }
 
-void setMaritalStatus(bool curStatus) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+void Patient::setMaritalStatus(bool curStatus) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
     maritalStatus = curStatus;
 }
 
-void setEmail(std::string curEmail) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+void Patient::setEmail(std::string curEmail) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
     email = curEmail;
 }
 
-void setPhoneNumber(int curNumber) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+void Patient::setPhoneNumber(int curNumber) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
     phoneNumber = curNumber;
 }
 
-void setOccupation(std::string curOccupation) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+void Patient::setOccupation(std::string curOccupation) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
     occupation = curOccupation;
 }
 
-void setMedicalCondition(std::string curCondition) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
-    medicalCondition = curCondition;
+void Patient::setMedicalConditions(std::string curCondition) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
+    medicalConditions = curCondition;
 }
 
-void setMedicalHistory(std::string curHistory) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+void Patient::setMedicalHistory(std::string curHistory) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
     medicalHistory = curHistory;
 }
 
-void setMedications(std::string curMedication) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+void Patient::setMedications(std::string curMedication) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
     medications = curMedication;
 }
 
-void setDoctor(std::string curDoctor) throw(NoAccessException) {
-    if(this->access == false) throw(NoAccessException);
+void Patient::setDoctor(std::string curDoctor) throw(NoAccessException) {
+    if(this->access == false) throw(NoAccessException());
     doctorName = curDoctor;
 }

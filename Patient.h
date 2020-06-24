@@ -19,8 +19,7 @@ struct DOB {
 class Patient {
     public:
         Patient();
-        bool enterRecords();
-        void setPassword();
+        void enterRecords();
         std::string getName() const;
         bool toggleAccess();        // this toogles the access bool if the correct password is entered
                                     // makes sure only the user can access his or her information
@@ -36,7 +35,7 @@ class Patient {
         std::string getEmail() const throw(NoAccessException);
         int getPhoneNumber() const throw(NoAccessException);
         std::string getOccupation() const throw(NoAccessException);
-        std::string getMedicalCondition() const throw(NoAccessException);
+        std::string getMedicalConditions() const throw(NoAccessException);
         std::string getMedicalHistory() const throw(NoAccessException);
         std::string getMedications() const throw(NoAccessException);
 
@@ -51,17 +50,18 @@ class Patient {
         void setEmail(std::string curEmail) throw(NoAccessException);
         void setPhoneNumber(int curNumber) throw(NoAccessException);
         void setOccupation(std::string curOccupation) throw(NoAccessException);
-        void setMedicalCondition(std::string curCondition) throw(NoAccessException);
+        void setMedicalConditions(std::string curCondition) throw(NoAccessException);
         void setMedicalHistory(std::string curHistory) throw(NoAccessException);
         void setMedications(std::string curMedication) throw(NoAccessException);
         void setDoctor(std::string curDoctor) throw(NoAccessException);
 
     private:
-        std::string name;
+        void setPassword();
         std::string password;
         bool access;
 
         // Personal information
+        std::string name;
         int idNumber;
         DOB birthday; 
         std::string placeBirth;
@@ -71,7 +71,7 @@ class Patient {
         std::string occupation;
 
         // Medical information
-        std::string medicalCondition;
+        std::string medicalConditions;
         std::string medicalHistory;
         std::string medications;
         

@@ -5,10 +5,10 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "Node.h"
-#include "Database.h"
-#include "Patient.h"
-#include "Doctor.h"
+//#include "Node.h"
+//#include "Database.h"
+//#include "Patient.h"
+//#include "Doctor.h"
 
 #define EXIT 5
 
