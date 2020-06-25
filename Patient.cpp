@@ -12,72 +12,113 @@ Patient::Patient() {
     access = false;
 }
 
+void Patient::createBasicInfo() {
+    cout << "Name: ";
+    cin >> name;
+    setPassword();
+}
+
 void Patient::enterRecords() {
     std::string curString;
-    bool curBool;
-
-    cout << "Name: ";
-    cin >> curString;
-    setName(curString);
     
-    cout << "\nID Number: ";
+    cout << "ID Number(format: 123123): ";
     cin >> curString;
     setIdNumber(stoi(curString));
 
-    cout << "\nDate of Birth(format: MMDDYYYY): ";
+    cout << "Date of Birth(format: MMDDYYYY): ";
     cin >> curString;
     setBirthday(curString.substr(0, 2), curString.substr(2, 2), curString.substr(4, 4));
 
-    cout << "\nPlace of Birth: ";
+    cout << "Place of Birth: ";
     cin >> curString;
     setPlaceBirth(curString);
 
-    cout << "\nMarital Status(true/false): ";
-    cin >> curBool;
-    setMaritalStatus(curBool);
+    cout << "Marital Status(true/false): ";
+    cin >> curString;
+    setMaritalStatus(curString);
 
-    cout << "\nEmail: ";
+    cout << "Email: ";
     cin >> curString;
     setEmail(curString);
 
-    cout << "\nPhone Number (1234567890): ";
+    cout << "Phone Number (format: 1234567890): ";
     cin >> curString;
     setPhoneNumber(stoi(curString));
 
-    cout << "\nOccupation: ";
+    cout << "Occupation: ";
     cin >> curString;
     setOccupation(curString);
 
-    cout << "\nMedical Conditions: ";
+    cout << "Medical Conditions: ";
     cin >> curString;
     setMedicalConditions(curString);
 
-    cout << "\nMedical History: ";
+    cout << "Medical History: ";
     cin >> curString;
     setMedicalHistory(curString);
 
-    cout << "\nCurrent medications: ";
+    cout << "Current medications: ";
     cin >> curString;
     setMedications(curString);
 
-    cout << "\nPrimary doctor: ";
+    cout << "Primary doctor: ";
     cin >> curString;
     setDoctor(curString);
 }
 
 void Patient::setPassword() {
     std::string first = "";
-    std::string second = " ";
+    std::string second = "";
 
-    while(first != second) {
+    while(true) {
         cout << "Create a password: ";
         cin >> first;
-        cout << "\nRe-enter your password: ";
+        cout << "Re-enter your password: ";
         cin >>second;
-        cout << "\n";
+        if(first == second && first != "" && checkValidPassword(first)) {
+            break;
+        }
     }
 
     password = first;
+}
+
+bool Patient::checkValidPassword(std::string cur) const {
+    // make sure at least 8 characters
+    if(cur.size() < 8) {
+        std::cout << "Password must be at least 8 characters long\n" << std::endl;
+        return false;
+    }
+
+    // check for an uppercase, lowercase, and special character
+    bool upper = false;
+    bool number = false;
+    bool special = false;
+    std::string specialChars = "!@#$%&*?_";
+
+    for(size_t i = 0; i < cur.size(); i++) {
+        char curChar = cur.at(i);
+        if(curChar >= 65 && curChar <= 90) {
+            upper = true;
+        }else if(curChar >= 48 && curChar <= 57) {
+            number = true;
+        }else if(specialChars.find(curChar) != string::npos) {
+            special = true;
+        }
+    }
+
+    if(!upper) {
+        std::cout << "Password must contain at least 1 uppercase character\n" << std::endl;
+        return false;
+    }else if(!number) {
+        std::cout << "Password must contain at least 1 number\n" << std::endl;
+        return false;
+    }else if(!special) {
+        std::cout << "Password must contain at least 1 special character (!@#$%&*?_)\n" << std::endl;
+        return false;
+    }
+
+    return true;
 }
 
 std::string Patient::getName() const {
@@ -88,7 +129,7 @@ bool Patient::toggleAccess() {
     std::string guess;
     
     while(!access) {
-        std::cout << "Enter password (q to cancel): ";
+        std::cout << "Enter password to access patient(q to cancel): ";
         std::cin >> guess;
         if(guess == password) {
             access = true;
@@ -96,6 +137,7 @@ bool Patient::toggleAccess() {
         }else if(guess == "q") {
             return false;
         }
+        std::cout << "Incorrect, try again\n" << std::endl;
     }
     
     return access;
@@ -105,18 +147,20 @@ bool Patient::toggleAccess() {
 std::string Patient::printMedicalRecords() const throw(NoAccessException) {
     if(this->access == false) throw(NoAccessException());
     std::ostringstream oss;
-    oss << "Name: " << getName() << std::endl;
-    oss << "ID Number: " << getIdNumber() << std::endl;
-    oss << "Date of Birth: " << getBirthday() << std::endl;
-    oss << "Place of Birth: " << getPlaceBirth() << std::endl;
-    oss << "Marital Status: " << getMaritalStatus() << std::endl;
-    oss << "Email: " << getEmail() << std::endl;
-    oss << "Phone Number: " << getPhoneNumber() << std::endl;
-    oss << "Occupation: " << getOccupation() << std::endl;
-    oss << "Medical Conditions: " << getMedicalConditions() << std::endl;
-    oss << "Medical History: " << getMedicalHistory() << std::endl;
-    oss << "Current medications: " << getMedications() << std::endl;
-    oss << "Primary doctor: " << getDoctorName() << std::endl;
+    oss << "\n\n";
+    oss << "---------------------------------------------------------Patient Records - " << getName() << "--------------------------------------------\n\n";
+    oss << "\t\t\t\t\tID Number: " << getIdNumber() << std::endl;
+    oss << "\t\t\t\t\tDate of Birth: " << getBirthday() << std::endl;
+    oss << "\t\t\t\t\tPlace of Birth: " << getPlaceBirth() << std::endl;
+    oss << "\t\t\t\t\tMarital Status: " << getMaritalStatus() << std::endl;
+    oss << "\t\t\t\t\tEmail: " << getEmail() << std::endl;
+    oss << "\t\t\t\t\tPhone Number: " << getPhoneNumber() << std::endl;
+    oss << "\t\t\t\t\tOccupation: " << getOccupation() << std::endl;
+    oss << "\t\t\t\t\tMedical Conditions: " << getMedicalConditions() << std::endl;
+    oss << "\t\t\t\t\tMedical History: " << getMedicalHistory() << std::endl;
+    oss << "\t\t\t\t\tCurrent medications: " << getMedications() << std::endl;
+    oss << "\t\t\t\t\tPrimary doctor: " << getDoctorName() << std::endl;
+    oss << "\n---------------------------------------------------------------------------------------------------------------------------\n\n";
     return oss.str();
 }
 
@@ -135,7 +179,7 @@ std::string Patient::getPlaceBirth() const throw(NoAccessException){
     return placeBirth;
 }
 
-bool Patient::getMaritalStatus() const throw(NoAccessException){
+std::string Patient::getMaritalStatus() const throw(NoAccessException){
     if(this->access == false) throw(NoAccessException());
     return maritalStatus;
 }
@@ -197,7 +241,7 @@ void Patient::setPlaceBirth(std::string curPlace) throw(NoAccessException) {
     placeBirth = curPlace;
 }
 
-void Patient::setMaritalStatus(bool curStatus) throw(NoAccessException) {
+void Patient::setMaritalStatus(std::string curStatus) throw(NoAccessException) {
     if(this->access == false) throw(NoAccessException());
     maritalStatus = curStatus;
 }
