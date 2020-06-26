@@ -11,10 +11,10 @@ all: ${BINARIES}
 main: main.o
 	${CXX} $^ $@
 
-testPatient: testPatient.o tddFuncs.o Patient.o
+testPatient: testPatient.o tddFuncs.o Person.o Patient.o 
 	${CXX} ${CXXFLAGS} $^ -o $@
 
-testDoctor: testDoctor.o tddFuncs.o Doctor.o
+testDoctor: testDoctor.o tddFuncs.o Person.o Doctor.o
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 clean:

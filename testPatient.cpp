@@ -9,20 +9,22 @@
 
 int main() {
     Patient p;
-    p.createBasicInfo();
     p.toggleAccess();
     p.enterRecords();
     
+
+
     try{
-        p.setName("Heather");
+        p.setIdNumber(391092);
     }catch(NoAccessException) {
         std::cout << "No access" << std::endl;
     }
     
-    std::cout << p.printMedicalRecords() << std::endl;
+    std::cout << p.printRecords() << std::endl;
 
 
-
+    std::string expected_1 = "Heather Dinh";
+    ASSERT_EQUALS(expected_1, p.getName());
 
     return 0;
 }

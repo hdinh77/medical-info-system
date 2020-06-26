@@ -7,7 +7,8 @@
 #include <string>
 
 int main() {
-    
+    Doctor d;
+    d.
 
 
 
