@@ -4,12 +4,13 @@
 #ifndef DOCTOR_H
 #define DOCTOR_H
 #include <string>
+#include "Person.h"
 
 class Doctor : public Person{
     public:
         Doctor();
         void enterRecords();
-        std::string printRecords() const throw(NoAccessException)
+        std::string printRecords() const throw(NoAccessException);
 
         // Getter methods
         std::string getPosition() const throw(NoAccessException);
